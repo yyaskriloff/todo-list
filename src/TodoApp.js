@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Typography, Paper, AppBar, Toolbar, Grid } from '@mui/material';
 import TodoList from './TodoList.js';
+import TodoForm from './TodoForm.js';
 function TodoApp() {
     const initTodos = [
         { id: 1, task: "Clean Fishtank", completed: false },
@@ -8,6 +9,9 @@ function TodoApp() {
         { id: 3, task: "Grow Beard", completed: false }
     ]
     const [todos, setTodos] = useState(initTodos)
+    const addTodo = newTodoText => {
+        setTodos([...todos, { id: 4, task: newTodoText, completed: false }])
+    }
     return (
         <Paper
             style={{
@@ -23,6 +27,7 @@ function TodoApp() {
                     <Typography color="inherit">TODOS with hooks</Typography>
                 </Toolbar>
             </AppBar>
+            <TodoForm addTodo={addTodo} />
             <TodoList todos={todos} />
         </Paper >
     )

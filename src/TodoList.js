@@ -3,7 +3,7 @@ import { Paper, List, Divider } from '@mui/material';
 import Todo from './Todo'
 
 function TodoList({ todos, removeTodo, toggleTodo, editTodo }) {
-    return (
+    if (todos.length) return (
         <Paper>
             <List>
                 {todos.map((todo, i) => (
@@ -24,6 +24,7 @@ function TodoList({ todos, removeTodo, toggleTodo, editTodo }) {
             </List>
         </Paper>
     )
+    else return null
 }
 
 export default TodoList

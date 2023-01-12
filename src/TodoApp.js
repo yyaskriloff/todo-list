@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Typography, Paper, AppBar, Toolbar, Grid } from '@mui/material';
 import TodoList from './TodoList.js';
 import TodoForm from './TodoForm.js';
+import { v4 } from 'uuid'
+
 function TodoApp() {
     const initTodos = [
         { id: 1, task: "Clean Fishtank", completed: false },
@@ -10,8 +12,20 @@ function TodoApp() {
     ]
     const [todos, setTodos] = useState(initTodos)
     const addTodo = newTodoText => {
-        setTodos([...todos, { id: 4, task: newTodoText, completed: false }])
+        setTodos([...todos, { id: v4(), task: newTodoText, completed: false }])
     }
+    const removeTodo = todoId => {
+        const updatedTodos = todos.filter(todo => todo.id !== todoId)
+        setTodos(updatedTodos)
+    }
+
+    const toggleTodo = todoId => {
+        const updatedTodo = todos.map(todo =>
+            todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+        )
+        setTodos(updatedTodo)
+    }
+
     return (
         <Paper
             style={{
@@ -30,7 +44,7 @@ function TodoApp() {
             <Grid container justifyContent="center" style={{ marginTop: "1rem" }}>
                 <Grid item xs={11} md={8} lg={4}>
                     <TodoForm addTodo={addTodo} />
-                    <TodoList todos={todos} />
+                    <TodoList todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
                 </Grid>
             </Grid>
         </Paper >

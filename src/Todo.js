@@ -3,13 +3,13 @@ import { ListItem, ListItemText, Checkbox, ListItemSecondaryAction, IconButton }
 import { Delete, Edit } from '@mui/icons-material';
 
 
-function Todo({ task, completed }) {
+function Todo({ id, task, completed, removeTodo, toggleTodo }) {
     return (
         <ListItem  >
-            <Checkbox tabIndex={-1} checked={completed} />
+            <Checkbox tabIndex={-1} checked={completed} onClick={() => { toggleTodo(id) }} />
             <ListItemText style={{ textDecoration: (completed ? "line-through" : "none") }}>{task}</ListItemText>
             <ListItemSecondaryAction>
-                <IconButton>
+                <IconButton onClick={() => { removeTodo(id) }}>
                     <Delete aria-label="Delete" />
                 </IconButton>
                 <IconButton>
